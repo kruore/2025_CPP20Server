@@ -1,0 +1,58 @@
+### --- [ OS / IDE Junk Files ] --- ###
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Visual Studio (가장 중요)
+.vs/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+*.user
+*.suo
+*.vclp
+*.VC.db
+*.VC.opendb
+
+# VS Code
+.vscode/
+!.vscode/settings.json  # 설정 공유가 필요하면 예외 처리
+!.vscode/tasks.json
+!.vscode/launch.json
+
+### --- [ Build Artifacts ] --- ###
+# Object & Library files
+*.obj
+*.o
+*.lib
+*.a
+*.exp
+*.ilk
+*.pdb
+*.idb
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Precompiled Headers
+*.pch
+*.gch
+
+### --- [ Build Systems ] --- ###
+# CMake
+CMakeCache.txt
+CMakeFiles/
+CMakeSettings.json
+cmake-build-debug/
+cmake-build-release/
+/build/
+
+# vcpkg (라이브러리 매니저 사용 시)
+vcpkg_installed/
+
+### --- [ Log & Temp ] --- ###
+*.log
+*.tmp
