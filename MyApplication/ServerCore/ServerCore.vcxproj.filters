@@ -4,6 +4,9 @@
     <Filter Include="Utils">
       <UniqueIdentifier>{fe3fc164-fedb-41ee-af4d-2d53552a4128}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{93674dc8-e2b8-43a7-ab34-050805bf0c6e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -15,6 +18,7 @@
     <ClInclude Include="CorePch.h">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="Lock.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -26,5 +30,6 @@
     <ClCompile Include="CorePch.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="Lock.cpp" />
   </ItemGroup>
 </Project>
