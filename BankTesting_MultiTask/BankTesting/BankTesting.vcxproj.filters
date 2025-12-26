@@ -14,10 +14,12 @@
     </ClInclude>
     <ClInclude Include="Accounts.h" />
     <ClInclude Include="Bank.h" />
+    <ClInclude Include="ThreadPool.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Accounts.cpp" />
     <ClCompile Include="Bank.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ThreadPool.cpp" />
   </ItemGroup>
 </Project>

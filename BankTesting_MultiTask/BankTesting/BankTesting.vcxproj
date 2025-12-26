@@ -21,12 +21,14 @@
   <ItemGroup>
     <ClInclude Include="Accounts.h" />
     <ClInclude Include="Bank.h" />
+    <ClInclude Include="ThreadPool.h" />
     <ClInclude Include="Types.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Accounts.cpp" />
     <ClCompile Include="Bank.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ThreadPool.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

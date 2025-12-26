@@ -19,6 +19,6 @@ public:
 	Int64 GetBalance(Int64 id);
 
 private:
-	std::unordered_map<Int64, std::shared_ptr<Accounts>> data;
+	std::unordered_map<Int64, std::shared_ptr<Accounts>> datas;
 	std::atomic<Int64> accountsNum;
 };

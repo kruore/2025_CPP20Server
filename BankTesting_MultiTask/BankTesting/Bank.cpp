@@ -1,53 +1,48 @@
 #include "Bank.h"
 #include "Accounts.h"
 
-Bank::Bank() : accountsNum(0)
+Bank::Bank()
 {
 }
 
 Bank::~Bank()
 {
-	data.clear(); // 스마트 포인터라 자동 해제되지만 명시적으로 비움
+	datas.clear();
 }
+
 Int64 Bank::GetTotalAssets()
 {
-	Int64 total = 0;
-	for (auto& pair : data)
-	{
-		total += pair.second->GetBalance();
-	}
-	return total;
+	return Int64();
 }
 
 Int64 Bank::CreateAccount()
 {
-	Int64 newId = accountsNum.fetch_add(1);
-
-	std::shared_ptr<Accounts> newAccount = std::make_shared<Accounts>(newId, 10000);
-
-	data.insert({ newId, newAccount });
-
-	return newId;
+	Int64 number = accountsNum.fetch_add(1);
+	shared_ptr<Accounts> account = make_shared<Accounts>(number,10000);
+	datas.insert({number,account});
+	return number;
 }
 
 bool Bank::DeleteAccount(Int64 number)
 {
-	auto it = data.find(number);
-	if (it != data.end())
+	auto it = datas.find(number);
+	if (it != datas.end())
 	{
-		data.erase(it);
-		return true;
+		datas.erase(it);
+			return true;
 	}
 	return false;
 }
 
-bool Bank::Transfer(Int64 recvId, Int64 sendId, Int64 amount)
+bool Bank::Transfer(Int64 recv, Int64 send, Int64 amount)
 {
-	auto itRecv = data.find(recvId);
-	auto itSend = data.find(sendId);
+	auto itRecv = datas.find(recv);
+	auto itSend = datas.find(send);
 
-	if (itRecv == data.end() || itSend == data.end())
+	if (itRecv == datas.end() || itSend == datas.end())
+	{
 		return false;
+	}
 
 	auto recvAcc = itRecv->second;
 	auto sendAcc = itSend->second;
@@ -63,8 +58,8 @@ bool Bank::Transfer(Int64 recvId, Int64 sendId, Int64 amount)
 
 Int64 Bank::GetBalance(Int64 id)
 {
-	auto it = data.find(id);
-	if (it != data.end())
+	auto it = datas.find(id);
+	if (it != datas.end())
 	{
 		return it->second->GetBalance();
 	}

@@ -3,6 +3,7 @@
 #include <thread>
 #include <random>
 #include "Bank.h"
+#include "Threadpool.h"
 #include "Accounts.h"
 
 using namespace std;
@@ -49,19 +50,19 @@ int main()
 
 	cout << "[System] 2. 멀티스레드 이체 전쟁 시작 (총 " << THREAD_COUNT * OPS_PER_THREAD << "건)" << endl;
 
-	// 스레드 컨테이너
-	vector<thread> threads;
-
-	// 스레드 생성 및 실행
-	for (int i = 0; i < THREAD_COUNT; ++i)
 	{
-		threads.push_back(thread(WorkerThread, &kBank, OPS_PER_THREAD));
-	}
+		ThreadPool threadpool(50);
 
-	// 모든 스레드가 끝날 때까지 대기 (Join)
-	for (auto& t : threads)
-	{
-		t.join();
+		// 스레드 생성 및 실행
+		for (int i = 0; i < THREAD_COUNT; ++i)
+		{
+			threadpool.EnqueueJob([&kBank, OPS_PER_THREAD]()
+				{
+					// 람다
+					WorkerThread(&kBank, OPS_PER_THREAD);
+				});
+		}
+
 	}
 
 	cout << "[System] 3. 모든 거래 종료." << endl;

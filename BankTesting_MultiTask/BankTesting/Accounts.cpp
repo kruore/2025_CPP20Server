@@ -1,32 +1,28 @@
-#include "Accounts.h"
-#include <atomic>
+// C++17 이상 필요
+struct Account {
+	int id;
+	long long balance;
+	mutable std::shared_mutex m; // 읽기/쓰기 락 분리
 
-Accounts::Accounts(Int64 id, Int64 balance) : _id(id), _balance(balance)
-{
+	Account(int _id, long long _bal) : id(_id), balance(_bal) {}
 
-}
-Accounts::~Accounts()
-{
-}
+	// 입금 (쓰기 락)
+	void Deposit(long long amount) {
+		std::unique_lock<std::shared_mutex> lock(m);
+		balance += amount;
+	}
 
-
-void Accounts::Deposit(Int64 amount)
-{
-	_balance += amount;
-}
-
-bool Accounts::Withdraw(Int64 amount)
-{
-	if (_balance - amount > 0)
-	{
-		_balance -= amount;
+	// 출금 (쓰기 락)
+	bool Withdraw(long long amount) {
+		std::unique_lock<std::shared_mutex> lock(m);
+		if (balance < amount) return false;
+		balance -= amount;
 		return true;
 	}
-	return false;
 
-}
-
-Int64 Accounts::GetBalance() const
-{
-	return _balance;
-}
+	// 잔액 조회 (읽기 락 - 여러 스레드 동시 접근 가능)
+	long long GetBalance() const {
+		std::shared_lock<std::shared_mutex> lock(m);
+		return balance;
+	}
+};
